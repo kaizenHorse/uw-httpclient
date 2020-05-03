@@ -11,7 +11,6 @@ import uw.httpclient.http.xml.vo.LvmamaPriceInfoVoErrorVo;
 import uw.httpclient.http.xml.vo.SessionVo;
 import uw.httpclient.json.JsonInterfaceHelper;
 import uw.task.exception.MapperException;
-import uw.task.exception.TaskPartnerException;
 
 import java.io.IOException;
 import java.util.Map;
@@ -87,7 +86,7 @@ public class JacksonXmlFailOnUnknownPropertiesUsageTest {
     }
 
     @Test
-    public void testGet() throws TaskPartnerException {
+    public void testGet() throws Exception {
         HttpInterface httpInterface = new JsonInterfaceHelper();
         String resp =
                 httpInterface.getForObject("http://www.zowoyoo.com",String.class);
@@ -95,7 +94,7 @@ public class JacksonXmlFailOnUnknownPropertiesUsageTest {
     }
 
     @Test
-    public void testPostForm() throws TaskPartnerException {
+    public void testPostForm() throws Exception {
         HttpInterface httpInterface = new JsonInterfaceHelper();
         Map<String,String> loginParam = Maps.newHashMap();
         loginParam.put("username","test");
@@ -106,7 +105,7 @@ public class JacksonXmlFailOnUnknownPropertiesUsageTest {
     }
 
     @Test
-    public void testGetTerry() throws TaskPartnerException {
+    public void testGetTerry() throws Exception {
         HttpInterface httpInterface = new JsonInterfaceHelper(content -> content.substring(0, 1));
         Map<String, String> loginParam = Maps.newHashMap();
         loginParam.put("username", "Terry");

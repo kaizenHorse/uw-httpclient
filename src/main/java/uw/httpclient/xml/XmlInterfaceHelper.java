@@ -10,7 +10,7 @@ public class XmlInterfaceHelper extends AbstractHttpInterface {
 
     private HttpHelper httpHelper;
 
-    private ObjectMapper xmlConverter;
+    public static final ObjectMapper XML_CONVERTER = new XMLObjectMapperImpl();
 
     private HttpMessageCallBack callBack;
 
@@ -25,37 +25,24 @@ public class XmlInterfaceHelper extends AbstractHttpInterface {
 
     public XmlInterfaceHelper(){
         this.httpHelper = new HttpHelper();
-        this.xmlConverter = ObjectMapper.DEFAULT_XML_MAPPER;
         this.callBack = null;
     }
 
     public XmlInterfaceHelper(final HttpMessageCallBack callBack){
-        this(ObjectMapper.DEFAULT_XML_MAPPER,callBack);
-    }
-
-    public XmlInterfaceHelper(final ObjectMapper xmlConverter){
-        this(xmlConverter,null);
-    }
-
-    public XmlInterfaceHelper(final ObjectMapper xmlConverter,final HttpMessageCallBack callBack){
         this.httpHelper = new HttpHelper();
-        this.xmlConverter = xmlConverter;
         this.callBack = callBack;
     }
 
     public XmlInterfaceHelper(final HttpConfig httpConfig){
-        this(httpConfig,ObjectMapper.DEFAULT_XML_MAPPER,null);
+        this.httpHelper = new HttpHelper(httpConfig);
+        this.callBack = null;
     }
 
     public XmlInterfaceHelper(final HttpConfig httpConfig,final HttpMessageCallBack callBack){
-        this(httpConfig,ObjectMapper.DEFAULT_XML_MAPPER,callBack);
-    }
-
-    public XmlInterfaceHelper(final HttpConfig httpConfig,final ObjectMapper xmlConverter,final HttpMessageCallBack callBack) {
         this.httpHelper = new HttpHelper(httpConfig);
-        this.xmlConverter = xmlConverter;
         this.callBack = callBack;
     }
+
 
     /**
      * 值映射接口
@@ -63,7 +50,7 @@ public class XmlInterfaceHelper extends AbstractHttpInterface {
      */
     @Override
     public ObjectMapper objectMapper() {
-        return xmlConverter;
+        return XML_CONVERTER;
     }
 
     /**

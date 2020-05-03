@@ -1,14 +1,11 @@
 package uw.httpclient.http.json;
 
-import org.junit.Test;
-
 import okhttp3.Request;
 import okio.Buffer;
-import org.apache.commons.lang.RandomStringUtils;
-
+import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.Test;
 import uw.httpclient.http.HttpHelper;
 import uw.httpclient.http.HttpInterface;
-import uw.httpclient.http.ObjectMapper;
 import uw.httpclient.http.json.vo.LogInterface;
 import uw.httpclient.http.json.vo.TestVo;
 import uw.httpclient.json.JsonInterfaceHelper;
@@ -29,7 +26,7 @@ public class JacksonJsonFailOnUnknownPropertiesUsageTest {
     public void testUnknownJsonParse() throws Exception
     {
         String json = "{\"name\":\"xiaoming\",\"age\":100,\"address\":\"Beijing NO.101\",\"type\": \"1\"}";
-        TestVo xiaoming = ObjectMapper.DEFAULT_JSON_MAPPER.parse(json,TestVo.class);
+        TestVo xiaoming = JsonInterfaceHelper.JSON_CONVERTER.parse(json,TestVo.class);
         xiaoming.getAddress();
     }
 
@@ -44,14 +41,14 @@ public class JacksonJsonFailOnUnknownPropertiesUsageTest {
         logInterface2.setProductType(10);
         logInterface2.setProductId(Long.parseLong(RandomStringUtils.randomNumeric(6)));
         logInterface2.setInterfaceProductId(RandomStringUtils.randomNumeric(11));
-        logInterface2.setInterfaceFunction("zwy.common.log.client.logInterface");
+        logInterface2.setInterfaceFunction("saas.common.log.client.logInterface");
         logInterface2.setRequestDate(new Date());
         logInterface2.setRequestBody("你吃饭了吗?");
         logInterface2.setResponseDate(new Date());
         logInterface2.setResponseBody("吃了");
 
-        ObjectMapper.DEFAULT_JSON_MAPPER.write(buffer.outputStream(),logInterface2);
-        String url = "http://localhost:9200/zwy.common.log.client.vo.loginterface/logs";
+        JsonInterfaceHelper.JSON_CONVERTER.write(buffer.outputStream(),logInterface2);
+        String url = "http://localhost:9200/saas.common.log.client.vo.loginterface/logs";
         String resp = httpInterface.requestForObject(new Request.Builder().url(url)
                 .post(BufferRequestBody.create(HttpHelper.JSON_UTF8, buffer))
                 .build(), String.class);

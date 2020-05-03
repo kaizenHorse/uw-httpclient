@@ -2,11 +2,14 @@ package uw.httpclient.http.callback;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.junit.Test;
-import uw.httpclient.http.*;
-import uw.task.exception.TaskPartnerException;
-import uw.task.exception.MapperException;
+import uw.httpclient.http.HttpHelper;
+import uw.httpclient.http.HttpInterface;
+import uw.httpclient.http.HttpMessageCallBack;
+import uw.httpclient.http.ObjectMapper;
 import uw.httpclient.json.JsonInterfaceHelper;
 import uw.httpclient.util.NoReturnClass;
+import uw.task.exception.MapperException;
+import uw.task.exception.TaskPartnerException;
 
 /**
  * 回调的使用的示例
@@ -149,7 +152,7 @@ public class HttpCallbackUsageTest {
      * @throws TaskPartnerException
      */
     @Test
-    public void testCallback() throws TaskPartnerException {
+    public void testCallback() throws Exception {
         ErrorCallBack errorCallBack = new ErrorCallBack();
         HttpInterface httpInterface = new JsonInterfaceHelper(errorCallBack);
         TypeReference<ResponseResult> typeRef = new TypeReference<ResponseResult>(){};

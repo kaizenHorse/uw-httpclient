@@ -1,10 +1,10 @@
 package uw.httpclient.http;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import uw.task.exception.TaskPartnerException;
 
 import java.util.Map;
 
@@ -45,38 +45,18 @@ public interface HttpInterface {
      * @param request
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T requestForResponse(Request request) throws TaskPartnerException;
+    <T> T requestForResponse(Request request) throws Exception;
 
     /**
      * 自定义请求
      * @param request
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T requestForResponse(HttpConfig httpConfig, Request request) throws TaskPartnerException;
-
-    /**
-     * 自定义请求
-     * @param request
-     * @param responseType
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> requestForEntity(Request request, Class<T> responseType) throws TaskPartnerException;
-
-    /**
-     * 自定义请求
-     * @param request
-     * @param typeRef
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> requestForEntity(Request request, TypeReference<T> typeRef) throws TaskPartnerException;
+    <T> T requestForResponse(HttpConfig httpConfig, Request request) throws Exception;
 
     /**
      * 自定义请求
@@ -84,9 +64,9 @@ public interface HttpInterface {
      * @param responseType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T requestForObject(Request request, Class<T> responseType) throws TaskPartnerException;
+    <T> ResponseWrapper<T> requestForEntity(Request request, Class<T> responseType) throws Exception;
 
     /**
      * 自定义请求
@@ -94,9 +74,51 @@ public interface HttpInterface {
      * @param typeRef
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T requestForObject(Request request, TypeReference<T> typeRef) throws TaskPartnerException;
+    <T> ResponseWrapper<T> requestForEntity(Request request, TypeReference<T> typeRef) throws Exception;
+
+
+    /**
+     * 自定义请求
+     * @param request
+     * @param javaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> requestForEntity(Request request, JavaType javaType) throws Exception;
+
+    /**
+     * 自定义请求
+     * @param request
+     * @param responseType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T requestForObject(Request request, Class<T> responseType) throws Exception;
+
+    /**
+     * 自定义请求
+     * @param request
+     * @param typeRef
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T requestForObject(Request request, TypeReference<T> typeRef) throws Exception;
+
+
+    /**
+     * 自定义请求
+     * @param request
+     * @param javaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T requestForObject(Request request, JavaType javaType) throws Exception;
 
     /**
      * 自定义请求
@@ -105,9 +127,9 @@ public interface HttpInterface {
      * @param httpConfig
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> requestEntity(Request request, Class<T> responseType,HttpConfig httpConfig) throws TaskPartnerException;
+    <T> ResponseWrapper<T> requestEntity(Request request, Class<T> responseType, HttpConfig httpConfig) throws Exception;
 
     /**
      * 自定义请求
@@ -116,9 +138,20 @@ public interface HttpInterface {
      * @param httpConfig
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> requestEntity(Request request, TypeReference<T> typeRef,HttpConfig httpConfig) throws TaskPartnerException;
+    <T> ResponseWrapper<T> requestEntity(Request request, TypeReference<T> typeRef, HttpConfig httpConfig) throws Exception;
+
+    /**
+     * 自定义请求
+     * @param request
+     * @param javaType
+     * @param httpConfig
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> requestEntity(Request request, JavaType javaType, HttpConfig httpConfig) throws Exception;
 
     /**
      * 自定义请求
@@ -127,9 +160,9 @@ public interface HttpInterface {
      * @param httpConfig
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T requestForObject(Request request, Class<T> responseType,HttpConfig httpConfig) throws TaskPartnerException;
+    <T> T requestForObject(Request request, Class<T> responseType, HttpConfig httpConfig) throws Exception;
 
     /**
      * 自定义请求
@@ -138,9 +171,20 @@ public interface HttpInterface {
      * @param httpConfig
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T requestForObject(Request request, TypeReference<T> typeRef,HttpConfig httpConfig) throws TaskPartnerException;
+    <T> T requestForObject(Request request, TypeReference<T> typeRef, HttpConfig httpConfig) throws Exception;
+
+    /**
+     * 自定义请求
+     * @param request
+     * @param javaType
+     * @param httpConfig
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T requestForObject(Request request, JavaType javaType, HttpConfig httpConfig) throws Exception;
 
     /**
      * GET
@@ -148,9 +192,9 @@ public interface HttpInterface {
      * @param responseType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T getForObject(String url, Class<T> responseType) throws TaskPartnerException;
+    <T> T getForObject(String url, Class<T> responseType) throws Exception;
 
     /**
      * GET
@@ -158,18 +202,18 @@ public interface HttpInterface {
      * @param responseType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType) throws TaskPartnerException;
+    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType) throws Exception;
 
     /**
      * GET
      * @param url
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T getForObject(String url, TypeReference<T> typeRef) throws TaskPartnerException;
+    <T> T getForObject(String url, TypeReference<T> typeRef) throws Exception;
 
     /**
      * GET
@@ -177,9 +221,28 @@ public interface HttpInterface {
      * @param typeRef
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef) throws TaskPartnerException;
+    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T getForObject(String url, JavaType type) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param type
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> getForEntity(String url, JavaType type) throws Exception;
 
     /**
      * GET
@@ -188,9 +251,32 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T getForObject(String url, Class<T> responseType,Object... uriVariables) throws TaskPartnerException;
+    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType, Map<String, String> uriVariables) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param typeRef
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef, Map<String, String> uriVariables) throws Exception;
+
+
+    /**
+     * GET
+     * @param url
+     * @param javaType
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> getForEntity(String url, JavaType javaType, Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -199,9 +285,9 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType,Object... uriVariables) throws TaskPartnerException;
+    <T> T getForObject(String url, Class<T> responseType, Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -210,20 +296,21 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T getForObject(String url, TypeReference<T> typeRef,Object... uriVariables) throws TaskPartnerException;
+    <T> T getForObject(String url, TypeReference<T> typeRef, Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
      * @param url
-     * @param typeRef
+     * @param javaType
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef,Object... uriVariables) throws TaskPartnerException;
+    <T> T getForObject(String url, JavaType javaType, Map<String, String> uriVariables) throws Exception;
+
 
     /**
      * GET
@@ -233,9 +320,10 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType, HttpConfig httpConfig,Object... uriVariables) throws TaskPartnerException;
+    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType, HttpConfig httpConfig, Map<String, String> uriVariables) throws Exception;
+
 
     /**
      * GET
@@ -245,9 +333,21 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef, HttpConfig httpConfig,Object... uriVariables) throws TaskPartnerException;
+    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef, HttpConfig httpConfig, Map<String, String> uriVariables) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> getForEntity(String url, JavaType javaType, HttpConfig httpConfig, Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -257,9 +357,9 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T getForObject(String url, Class<T> responseType, HttpConfig httpConfig,Object... uriVariables) throws TaskPartnerException;
+    <T> T getForObject(String url, Class<T> responseType, HttpConfig httpConfig, Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -269,9 +369,21 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T getForObject(String url, TypeReference<T> typeRef, HttpConfig httpConfig,Object... uriVariables) throws TaskPartnerException;
+    <T> T getForObject(String url, TypeReference<T> typeRef, HttpConfig httpConfig, Map<String, String> uriVariables) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T getForObject(String url, JavaType javaType, HttpConfig httpConfig, Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -280,9 +392,10 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
+     * @throws Exception
      */
     <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, Class<T> responseType,
-                                        Object... uriVariables) throws TaskPartnerException;
+                                        Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -291,9 +404,22 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
+     * @throws Exception
      */
     <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef,
-                                        Object... uriVariables) throws TaskPartnerException;
+                                        Map<String, String> uriVariables) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param javaType
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, JavaType javaType,
+                                        Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -302,9 +428,10 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
+     * @throws Exception
      */
     <T> T getForObject(String url, Map<String, String> headers, Class<T> responseType,
-                                        Object... uriVariables) throws TaskPartnerException;
+                       Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -313,9 +440,22 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
+     * @throws Exception
      */
     <T> T getForObject(String url, Map<String, String> headers, TypeReference<T> typeRef,
-                       Object... uriVariables) throws TaskPartnerException;
+                       Map<String, String> uriVariables) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param javaType
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T getForObject(String url, Map<String, String> headers, JavaType javaType,
+                       Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -325,201 +465,10 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, Class<T> responseType,HttpConfig httpConfig,
-                       Object... uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef,HttpConfig httpConfig,
-                                        Object... uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, Map<String, String> headers, Class<T> responseType,HttpConfig httpConfig,
-                                        Object... uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, Map<String, String> headers, TypeReference<T> typeRef,HttpConfig httpConfig,
-                       Object... uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, Class<T> responseType, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, TypeReference<T> typeRef, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, Class<T> responseType, HttpConfig httpConfig, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, TypeReference<T> typeRef, HttpConfig httpConfig, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, Class<T> responseType, HttpConfig httpConfig, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, TypeReference<T> typeRef, HttpConfig httpConfig, Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, Class<T> responseType,
-                                        Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef,
-                                        Map<String, ?> uriVariables) throws TaskPartnerException;
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, Map<String, String> headers, Class<T> responseType,
-                       Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param typeRef
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T getForObject(String url, Map<String, String> headers, TypeReference<T> typeRef,
-                       Map<String, ?> uriVariables) throws TaskPartnerException;
-
-    /**
-     * GET
-     * @param url
-     * @param responseType
-     * @param httpConfig
-     * @param uriVariables
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
-                                        Map<String, ?> uriVariables) throws TaskPartnerException;
+                                        Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -529,10 +478,23 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
-                                        Map<String, ?> uriVariables) throws TaskPartnerException;
+                                        Map<String, String> uriVariables) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> getForEntity(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                                        Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -542,10 +504,10 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> T getForObject(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
-                       Map<String, ?> uriVariables) throws TaskPartnerException;
+                       Map<String, String> uriVariables) throws Exception;
 
     /**
      * GET
@@ -555,10 +517,33 @@ public interface HttpInterface {
      * @param uriVariables
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> T getForObject(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
-                       Map<String, ?> uriVariables) throws TaskPartnerException;
+                       Map<String, String> uriVariables) throws Exception;
+
+    /**
+     * GET
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param uriVariables
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T getForObject(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                       Map<String, String> uriVariables) throws Exception;
+    /**
+     * POST
+     * @param url
+     * @param responseType
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -567,20 +552,9 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, RequestBody requestBody) throws TaskPartnerException;
-
-    /**
-     * POST
-     * @param url
-     * @param responseType
-     * @param requestBody
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> T postForObject(String url, Class<T> responseType, RequestBody requestBody) throws TaskPartnerException;
+    <T> T postForObject(String url, Class<T> responseType, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -589,9 +563,9 @@ public interface HttpInterface {
      * @param formParam
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, Map<String,String> formParam) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, Map<String, String> formParam) throws Exception;
 
     /**
      * POST
@@ -600,9 +574,9 @@ public interface HttpInterface {
      * @param formParam
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Class<T> responseType, Map<String,String> formParam) throws TaskPartnerException;
+    <T> T postForObject(String url, Class<T> responseType, Map<String, String> formParam) throws Exception;
 
     /**
      * POST
@@ -611,9 +585,9 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, RequestBody requestBody) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -622,20 +596,9 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, TypeReference<T> typeRef, RequestBody requestBody) throws TaskPartnerException;
-
-    /**
-     * POST
-     * @param url
-     * @param typeRef
-     * @param formParam
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, Map<String,String> formParam) throws TaskPartnerException;
+    <T> T postForObject(String url, TypeReference<T> typeRef, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -644,9 +607,64 @@ public interface HttpInterface {
      * @param formParam
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, TypeReference<T> typeRef, Map<String,String> formParam) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, Map<String, String> formParam) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param typeRef
+     * @param formParam
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, TypeReference<T> typeRef, Map<String, String> formParam) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, JavaType javaType, RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, JavaType javaType, RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param formParam
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, JavaType javaType, Map<String, String> formParam) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param formParam
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, JavaType javaType, Map<String, String> formParam) throws Exception;
 
     /**
      * POST
@@ -656,9 +674,9 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, HttpConfig httpConfig,RequestBody requestBody) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, HttpConfig httpConfig, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -668,9 +686,21 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, HttpConfig httpConfig,RequestBody requestBody) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, HttpConfig httpConfig, RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, JavaType javaType, HttpConfig httpConfig, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -680,9 +710,9 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Class<T> responseType, HttpConfig httpConfig,RequestBody requestBody) throws TaskPartnerException;
+    <T> T postForObject(String url, Class<T> responseType, HttpConfig httpConfig, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -692,9 +722,21 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, TypeReference<T> typeRef, HttpConfig httpConfig,RequestBody requestBody) throws TaskPartnerException;
+    <T> T postForObject(String url, TypeReference<T> typeRef, HttpConfig httpConfig, RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, JavaType javaType, HttpConfig httpConfig, RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -704,10 +746,10 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers,Class<T> responseType,
-                                         RequestBody requestBody) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, Class<T> responseType,
+                                         RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -717,10 +759,23 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers,TypeReference<T> typeRef,
-                                         RequestBody requestBody) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef,
+                                         RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, JavaType javaType,
+                                         RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -730,10 +785,10 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers,Class<T> responseType,
-                                         RequestBody requestBody) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, Class<T> responseType,
+                        RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -743,38 +798,23 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers,TypeReference<T> typeRef,
-                        RequestBody requestBody) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, TypeReference<T> typeRef,
+                        RequestBody requestBody) throws Exception;
 
     /**
      * POST
      * @param url
      * @param headers
-     * @param responseType
-     * @param httpConfig
+     * @param javaType
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers,Class<T> responseType, HttpConfig httpConfig,
-                                         RequestBody requestBody) throws TaskPartnerException;
-
-    /**
-     * POST
-     * @param url
-     * @param headers
-     * @param typeRef
-     * @param httpConfig
-     * @param requestBody
-     * @param <T>
-     * @return
-     * @throws TaskPartnerException
-     */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers,TypeReference<T> typeRef, HttpConfig httpConfig,
-                                         RequestBody requestBody) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, JavaType javaType,
+                        RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -785,10 +825,10 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers,Class<T> responseType, HttpConfig httpConfig,
-                                         RequestBody requestBody) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
+                                         RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -799,10 +839,66 @@ public interface HttpInterface {
      * @param requestBody
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers,TypeReference<T> typeRef, HttpConfig httpConfig,
-                        RequestBody requestBody) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
+                                         RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param httpConfig
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                                         RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param responseType
+     * @param httpConfig
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
+                        RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param typeRef
+     * @param httpConfig
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
+                        RequestBody requestBody) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param httpConfig
+     * @param requestBody
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                        RequestBody requestBody) throws Exception;
 
     /**
      * POST
@@ -811,10 +907,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType,
-                        String content, MediaType mediaType) throws TaskPartnerException;
+                                         String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -823,10 +919,22 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef,
-                                         String content, MediaType mediaType) throws TaskPartnerException;
+                                         String content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, JavaType javaType,
+                                         String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -835,10 +943,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> T postForObject(String url, Class<T> responseType,
-                                                String content, MediaType mediaType) throws TaskPartnerException;
+                        String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -847,10 +955,22 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> T postForObject(String url, TypeReference<T> typeRef,
-                        String content, MediaType mediaType) throws TaskPartnerException;
+                        String content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, JavaType javaType,
+                        String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -860,10 +980,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType,
-                                                Object content, MediaType mediaType) throws TaskPartnerException;
+                                         Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -873,10 +993,23 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef,
-                                         Object content, MediaType mediaType) throws TaskPartnerException;
+                                         Object content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param content
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, JavaType javaType,
+                                         Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -886,10 +1019,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> T postForObject(String url, Class<T> responseType,
-                        Object content, MediaType mediaType) throws TaskPartnerException;
+                        Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -899,10 +1032,23 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> T postForObject(String url, TypeReference<T> typeRef,
-                        Object content, MediaType mediaType) throws TaskPartnerException;
+                        Object content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param content
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, JavaType javaType,
+                        Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -912,10 +1058,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, HttpConfig httpConfig,
-                                                String content, MediaType mediaType) throws TaskPartnerException;
+                                         String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -925,10 +1071,23 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, HttpConfig httpConfig,
-                                         String content, MediaType mediaType) throws TaskPartnerException;
+                                         String content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, JavaType javaType, HttpConfig httpConfig,
+                                         String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -938,10 +1097,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, Class<T> responseType,
-                                                String content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, Class<T> responseType,
+                        String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -951,10 +1110,23 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, TypeReference<T> typeRef,
-                        String content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, TypeReference<T> typeRef,
+                        String content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, Map<String, String> headers, JavaType javaType,
+                        String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -965,10 +1137,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, Class<T> responseType, HttpConfig httpConfig,
-                                         Object content, MediaType mediaType) throws TaskPartnerException;
+                                         Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -979,10 +1151,24 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
     <T> ResponseWrapper<T> postForEntity(String url, TypeReference<T> typeRef, HttpConfig httpConfig,
-                                         Object content, MediaType mediaType) throws TaskPartnerException;
+                                         Object content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param javaType
+     * @param httpConfig
+     * @param content
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, JavaType javaType, HttpConfig httpConfig,
+                                         Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -993,10 +1179,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, Class<T> responseType,
-                        Object content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, Class<T> responseType,
+                        Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1007,10 +1193,11 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers, Class<T> responseType,
-                        Object content,MediaType mediaType) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, Class<T> responseType,
+                                         Object content, MediaType mediaType) throws Exception;
+
 
     /**
      * POST
@@ -1021,10 +1208,24 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, TypeReference<T> typeRef,
-                        Object content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, TypeReference<T> typeRef,
+                        Object content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param content
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, Map<String, String> headers, JavaType javaType,
+                        Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1035,10 +1236,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers, Class<T> responseType,HttpConfig httpConfig,
-                                         String content,MediaType mediaType) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
+                                         String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1049,10 +1250,24 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers, TypeReference<T> typeRef,HttpConfig httpConfig,
-                                         String content,MediaType mediaType) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
+                                         String content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param httpConfig
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                                         String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1063,10 +1278,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, Class<T> responseType,HttpConfig httpConfig,
-                                         String content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
+                        String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1077,10 +1292,24 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, TypeReference<T> typeRef,HttpConfig httpConfig,
-                        String content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
+                        String content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param httpConfig
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                        String content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1091,10 +1320,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers, Class<T> responseType,HttpConfig httpConfig,
-                                         Object content,MediaType mediaType) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
+                                         Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1105,10 +1334,24 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> ResponseWrapper<T> postForEntity(String url, Map<String,String> headers, TypeReference<T> typeRef,HttpConfig httpConfig,
-                                         Object content,MediaType mediaType) throws TaskPartnerException;
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
+                                         Object content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param httpConfig
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> ResponseWrapper<T> postForEntity(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                                         Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1119,10 +1362,10 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, Class<T> responseType,HttpConfig httpConfig,
-                        Object content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, Class<T> responseType, HttpConfig httpConfig,
+                        Object content, MediaType mediaType) throws Exception;
 
     /**
      * POST
@@ -1133,8 +1376,22 @@ public interface HttpInterface {
      * @param mediaType
      * @param <T>
      * @return
-     * @throws TaskPartnerException
+     * @throws Exception
      */
-    <T> T postForObject(String url, Map<String,String> headers, TypeReference<T> typeRef,HttpConfig httpConfig,
-                        Object content,MediaType mediaType) throws TaskPartnerException;
+    <T> T postForObject(String url, Map<String, String> headers, TypeReference<T> typeRef, HttpConfig httpConfig,
+                        Object content, MediaType mediaType) throws Exception;
+
+    /**
+     * POST
+     * @param url
+     * @param headers
+     * @param javaType
+     * @param httpConfig
+     * @param mediaType
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
+    <T> T postForObject(String url, Map<String, String> headers, JavaType javaType, HttpConfig httpConfig,
+                        Object content, MediaType mediaType) throws Exception;
 }

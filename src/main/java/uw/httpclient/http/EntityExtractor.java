@@ -1,17 +1,18 @@
 package uw.httpclient.http;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import okhttp3.Request;
 import okhttp3.Response;
-import uw.task.exception.MapperException;
 import uw.httpclient.util.NoReturnClass;
+import uw.task.exception.MapperException;
 
 import java.io.IOException;
 
 /**
  * 实体Wrapper请求结果抓取器
  *
- * @author liliang
+ * @author liliang,Kaizen
  * @since 2017/9/25
  */
 public class EntityExtractor<T> implements ResponseExtractor<ResponseWrapper<T>> {
@@ -21,6 +22,9 @@ public class EntityExtractor<T> implements ResponseExtractor<ResponseWrapper<T>>
     private Class<T> responseType;
 
     private TypeReference<T> typeRef;
+
+    private JavaType javaType;
+
 
     public EntityExtractor(ObjectMapper objectMapper, Class<T> responseType) {
         this.objectMapper = objectMapper;
@@ -32,6 +36,11 @@ public class EntityExtractor<T> implements ResponseExtractor<ResponseWrapper<T>>
         this.typeRef = typeRef;
     }
 
+    public EntityExtractor(ObjectMapper objectMapper, JavaType javaType) {
+        this.objectMapper = objectMapper;
+        this.javaType = javaType;
+    }
+
     @Override
     @SuppressWarnings("unchecked")
     public ResponseWrapper<T> extractData(Request request, Response response, HttpMessageCallBack callBack) throws IOException, MapperException {
@@ -41,10 +50,15 @@ public class EntityExtractor<T> implements ResponseExtractor<ResponseWrapper<T>>
             if (responseType == NoReturnClass.class && typeRef == null)
                 return null;
         }
-        if (responseType == null)
-            return new ResponseWrapper<>(request, response, objectMapper.parse(resp, typeRef), resp);
-        if (responseType == String.class)
+
+        if(responseType == String.class)
             return new ResponseWrapper<>(request, response, (T) resp, resp);
-        return new ResponseWrapper<>(request, response, objectMapper.parse(resp, responseType), resp);
+        if (responseType != null)
+            return new ResponseWrapper<>(request, response, objectMapper.parse(resp, responseType), resp);
+        if(typeRef != null)
+            return new ResponseWrapper<>(request, response, objectMapper.parse(resp, typeRef), resp);
+        if (javaType != null)
+            return new ResponseWrapper<>(request, response, objectMapper.parse(resp, javaType), resp);
+        throw new IllegalArgumentException("responseType or typeRef or javaType must not null!");
     }
 }
