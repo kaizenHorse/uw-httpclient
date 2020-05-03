@@ -66,6 +66,7 @@ public class XmlInterfaceHelper extends AbstractHttpInterface {
      * callBack,主要在ObjectMapper反序列化之前把content做一些处理
      * @return
      */
+    @Override
     public HttpMessageCallBack callBack(){
         return callBack;
     }

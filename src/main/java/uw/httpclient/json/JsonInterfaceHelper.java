@@ -70,6 +70,7 @@ public class JsonInterfaceHelper extends AbstractHttpInterface {
      *
      * @return
      */
+    @Override
     public HttpMessageCallBack callBack() {
         return callBack;
     }
@@ -79,6 +80,7 @@ public class JsonInterfaceHelper extends AbstractHttpInterface {
      *
      * @return
      */
+    @Override
     public HttpHelper httpHelper(HttpConfig httpConfig) {
         httpHelper = new HttpHelper(httpConfig);
         return httpHelper;
